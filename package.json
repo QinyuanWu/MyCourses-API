@@ -1,0 +1,24 @@
+{
+  "name": "hw3-QinyuanWu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cs280fall20-homework/hw3-QinyuanWu.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cs280fall20-homework/hw3-QinyuanWu/issues"
+  },
+  "homepage": "https://github.com/cs280fall20-homework/hw3-QinyuanWu#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.14"
+  }
+}
