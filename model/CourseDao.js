@@ -1,7 +1,11 @@
 const Course = require("./Course.js");
 
-//deploy CRUD operations
-//use built-in functions of Course model to access data
+/*
+	Deploy CRUD operations on Course
+	Use built-in functions of Course model to access data
+	All async functions need exception handling
+	Versionkey is hidden for all queries
+*/
 class CourseDao {
 	constructor() {
 	}
@@ -16,13 +20,13 @@ class CourseDao {
 	//if status not specified, return all courses
 	async readAll(status = "") {
 		const filter = status ? { status } : {};
-		const courses = await Course.find(filter);
+		const courses = await Course.find(filter).select('-__v');
 		return courses;
 	}
 
 	//return the course with the matching id
 	async read(id) {
-		const course = await Course.findById(id);
+		const course = await Course.findById(id).select('-__v');
 		return course;
 	}
 
@@ -32,12 +36,13 @@ class CourseDao {
 			id,
 			{ status },
 			{ new: true, runValidators: true}
-		);
+		).select('-__v');
 		return course;
 	}
 
+	//delete a course with the matching id from the database
 	async delete(id) {
-		const course = await Course.findByIdAndDelete(id);
+		const course = await Course.findByIdAndDelete(id).select('-__v');
 		return course;
 	}
 }
