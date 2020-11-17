@@ -3,7 +3,7 @@ const Course = require("./Course.js");
 /*
 	Deploy CRUD operations on Course
 	Use built-in functions of Course model to access data
-	All async functions need exception handling
+	All functions return promise and need exception handling
 	Versionkey is hidden for all queries
 */
 class CourseDao {
