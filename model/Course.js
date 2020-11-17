@@ -9,11 +9,11 @@ const CourseSchema = new Schema({
   },
   number: { 
     type: String, 
-    required: [true, "Path `number` is required."] 
+    required: [true, "Path `term` is required."] 
   },
   term: { 
     type: String, 
-    required: [true, "Path `term` is required."] 
+    required: [true, "Path `number` is required."] 
   },
   status: { 
     type: String, 
