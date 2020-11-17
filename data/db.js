@@ -1,4 +1,4 @@
-request("dotenv").config(); //search for env variables
+require("dotenv").config(); //search for env variables
 const mongoose = require("mongoose");
 
 //set up db connection link
@@ -26,4 +26,4 @@ function connect() {
     });
 }
 
-module.export = { connect };
+module.exports = { connect };
