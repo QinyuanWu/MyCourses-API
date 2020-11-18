@@ -81,8 +81,8 @@ router.get("/api/search", (req, res) => {
         errorHandler(res, 500, "SIS API is being cached. Please wait and try the request later.")
     } else {
         const query = req.query.query;
-        const page = Number.parseInt(req.query.page);
-        const limit = Number.parseInt(req.query.limit);
+        const page = req.query.page ? Number.parseInt(req.query.page) : 1;
+        const limit = req.query.limit ? Number.parseInt(req.query.limit) : 10;
         try {
             paginateResults(res, csCourses, query, page, limit);
         } 
