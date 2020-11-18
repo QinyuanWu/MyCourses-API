@@ -1,5 +1,3 @@
-//does not hide version key for create!!!
-//need to remove term selection!!!
 require("dotenv").config(); //search for env variables
 const CourseDao = require("../model/CourseDao.js");
 const express = require("express");
@@ -7,7 +5,6 @@ const { addSampleCourses } = require("../data/courses.js");
 const { paginateResults } = require("./pagination.js");
 const router = express.Router();
 const axios = require("axios");
-const _ = require("lodash");
 const SIS_API_KEY = process.env.SIS_API_KEY;
 
 const courses = new CourseDao();
@@ -70,7 +67,7 @@ router.patch("/api/courses/:courseId", (req, res) => {
 
 //cache cs courses from SIS API
 let csCourses;
-axios.get(`https://sis.jhu.edu/api/classes?key=${SIS_API_KEY}&school=Whiting School of Engineering&department=EN Computer Science&term=Fall 2020`)
+axios.get(`https://sis.jhu.edu/api/classes?key=${SIS_API_KEY}&school=Whiting School of Engineering&department=EN Computer Science`)
     .then((response) => {
         csCourses = response.data.filter(course => course.SectionName === "01"); //filter duplicate courses
         csCourses = extractProperty(csCourses);
