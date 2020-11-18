@@ -1,7 +1,7 @@
 const db = require("./data/db.js");
-const cors = require("cors");
-const helmet = require("helmet");
-const morgan = require("morgan");
+const cors = require("cors");     
+const helmet = require("helmet"); //provide security enhancement
+const morgan = require("morgan"); //log http request history to terminal
 const express = require("express");
 const app = express();
 const courseRouter = require("./routes/courses.js");

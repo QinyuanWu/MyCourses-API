@@ -13,7 +13,13 @@ class CourseDao {
 	//create a course document
 	async create(title, number, term, status) {
 		const course = await Course.create({ title, number, term, status });
-		return course;
+		return {
+			_id: course._id,
+			title: course.title,
+			number: course.number,
+			term: course.term,
+			status: course.status,
+		};
 	}
 
 	//return all courses matching the specified status
