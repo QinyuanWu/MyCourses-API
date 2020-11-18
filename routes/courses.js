@@ -10,6 +10,16 @@ const SIS_API_KEY = process.env.SIS_API_KEY;
 const courses = new CourseDao();
 addSampleCourses(courses);
 
+//cache cs courses from SIS API
+let csCourses;
+axios.get(`https://sis.jhu.edu/api/classes?key=${SIS_API_KEY}&school=Whiting School of Engineering&department=EN Computer Science`)
+    .then((response) => {
+        csCourses = response.data.filter(course => course.SectionName === "01"); //filter duplicate courses
+        csCourses = extractProperty(csCourses);
+        console.log("SIS API cached!");
+    })
+    .catch((err) => errorHandler(res, 500, err)); //server error
+
 //get all courses with optional query(status)
 //return empty data field if status query is not empty but invalid
 router.get("/api/courses", (req, res) => {
@@ -35,7 +45,7 @@ router.get("/api/courses/:courseId", (req, res) => {
 router.post("/api/courses", (req, res) => {
     courses.create(req.body.title, req.body.term, req.body.number, req.body.status)
         .then((course) => {
-            res.status(201).json({ data: _.omit(course, ["__v"]) }); //tODO: does not hide versionkey!!!
+            res.status(201).json({ data: course }); 
         }) //success
         .catch((err) => errorHandler(res, 400, err)); //bad request
 });
@@ -64,16 +74,6 @@ router.patch("/api/courses/:courseId", (req, res) => {
         )
         .catch((err) => errorHandler(res, 400, err)); //invalid id or status, bad request
 });
-
-//cache cs courses from SIS API
-let csCourses;
-axios.get(`https://sis.jhu.edu/api/classes?key=${SIS_API_KEY}&school=Whiting School of Engineering&department=EN Computer Science`)
-    .then((response) => {
-        csCourses = response.data.filter(course => course.SectionName === "01"); //filter duplicate courses
-        csCourses = extractProperty(csCourses);
-        console.log("SIS API cached!");
-    })
-    .catch((err) => errorHandler(res, 500, err)); //server error
 
 //search JHU CS courses
 router.get("/api/search", (req, res) => {
